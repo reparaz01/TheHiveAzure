@@ -1,0 +1,5 @@
+CLASE:
+"SqlServer": "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=REDSOCIAL;Persist Security Info=True;User ID=SA;Password=MCSD2023; Trust Server Certificate =True"
+
+CASA:
+"SqlServer": "Data Source=DESKTOP-A2FPPFB\\SQLEXPRESS;Initial Catalog=REDSOCIAL;Persist Security Info=True;User ID=SA;Password=MCSD2023;Trust Server Certificate=True"

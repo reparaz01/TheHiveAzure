@@ -1,0 +1,61 @@
+.navbar {
+    font-family: 'Montserrat', sans-serif;
+    background-color: dodgerblue;
+    height: 95px;
+    width: 100%;
+}
+
+.navbar-brand img.logo {
+    max-height: 112px;
+}
+
+.navbar-nav {
+    margin-left: auto;
+    align-items: center;
+}
+
+.dropdown-menu {
+    right: 0;
+    right: auto;
+}
+
+.content-container {
+    background-color: #fff; /* Fondo blanco para el contenido */
+    margin-top: 40px;
+    padding: 40px;
+    border-radius: 0px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+/* Estilo para el texto del navbar */
+.navbar-nav .nav-link {
+    color: white;
+    font-size: 17px;
+}
+
+    /* Estilo para el efecto hover */
+    .navbar-nav .nav-link:hover {
+        transform: scale(1.1);
+    }
+
+
+/* Estilo para la imagen circular */
+.nav-item img.profile-pic {
+    width: 61px;
+    height: 61px;
+    margin-bottom: 0.1vh;
+    border-radius: 50%; /* Hace que la imagen sea circular */
+    margin-left: 11px; /* Espacio entre el nombre del usuario y la imagen */
+    margin-right: 19px;
+    box-sizing: border-box; /* El tamaño total del elemento incluye el borde y el relleno */
+    border: 2px solid white;
+    padding: 3px;
+}
+
+
+.nav-item img.profile-pic:hover {
+    transform: scale(1.1); /* Efecto de escala al hacer hover */
+}
+
+
+

@@ -1,0 +1,283 @@
+USE [master]
+GO
+/****** Object:  Database [REDSOCIAL]    Script Date: 18/03/2024 13:37:40 ******/
+CREATE DATABASE [REDSOCIAL]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'REDSOCIAL', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\REDSOCIAL.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'REDSOCIAL_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\REDSOCIAL_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [REDSOCIAL] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [REDSOCIAL].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [REDSOCIAL] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [REDSOCIAL] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [REDSOCIAL] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [REDSOCIAL] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [REDSOCIAL] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [REDSOCIAL] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [REDSOCIAL] SET  MULTI_USER 
+GO
+ALTER DATABASE [REDSOCIAL] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [REDSOCIAL] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [REDSOCIAL] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [REDSOCIAL] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [REDSOCIAL] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [REDSOCIAL] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [REDSOCIAL] SET QUERY_STORE = OFF
+GO
+USE [REDSOCIAL]
+GO
+/****** Object:  Table [dbo].[Guardados]    Script Date: 18/03/2024 13:37:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Guardados](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[id_publicacion] [int] NULL,
+	[username] [nvarchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Likes]    Script Date: 18/03/2024 13:37:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Likes](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[id_publicacion] [int] NULL,
+	[username] [nvarchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Publicaciones]    Script Date: 18/03/2024 13:37:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Publicaciones](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[username] [nvarchar](50) NULL,
+	[foto_perfil] [nvarchar](50) NULL,
+	[texto] [nvarchar](max) NULL,
+	[imagen] [nvarchar](50) NULL,
+	[fecha_publicacion] [datetime] NULL,
+	[tipo_publicacion] [int] NULL,
+	[Likeado] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Roles]    Script Date: 18/03/2024 13:37:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Roles](
+	[id] [int] NOT NULL,
+	[nombre] [nvarchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Seguidores]    Script Date: 18/03/2024 13:37:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Seguidores](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[seguido_username] [nvarchar](50) NULL,
+	[seguidor_username] [nvarchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Usuarios]    Script Date: 18/03/2024 13:37:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Usuarios](
+	[username] [nvarchar](50) NOT NULL,
+	[nombre] [nvarchar](50) NULL,
+	[password] [varbinary](max) NULL,
+	[salt] [nvarchar](50) NULL,
+	[email] [nvarchar](40) NULL,
+	[telefono] [nvarchar](20) NULL,
+	[descripcion] [nvarchar](300) NULL,
+	[foto_perfil] [nvarchar](100) NULL,
+	[rol] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[username] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Likes] ON 
+GO
+INSERT [dbo].[Likes] ([id], [id_publicacion], [username]) VALUES (2, 2, N'jaime.reparaz')
+GO
+INSERT [dbo].[Likes] ([id], [id_publicacion], [username]) VALUES (3, 1, N'jaime.reparaz')
+GO
+INSERT [dbo].[Likes] ([id], [id_publicacion], [username]) VALUES (4, 2, N'german_paredes')
+GO
+INSERT [dbo].[Likes] ([id], [id_publicacion], [username]) VALUES (5, 2, N'sejomont')
+GO
+INSERT [dbo].[Likes] ([id], [id_publicacion], [username]) VALUES (6, 6, N'sejomont')
+GO
+INSERT [dbo].[Likes] ([id], [id_publicacion], [username]) VALUES (7, 10, N'jodidokike')
+GO
+INSERT [dbo].[Likes] ([id], [id_publicacion], [username]) VALUES (8, 6, N'jaime.reparaz')
+GO
+INSERT [dbo].[Likes] ([id], [id_publicacion], [username]) VALUES (9, 9, N'jaime.reparaz')
+GO
+SET IDENTITY_INSERT [dbo].[Likes] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Publicaciones] ON 
+GO
+INSERT [dbo].[Publicaciones] ([id], [username], [foto_perfil], [texto], [imagen], [fecha_publicacion], [tipo_publicacion], [Likeado]) VALUES (1, N'samuelpop', N'', N'Hola', N'', CAST(N'2024-03-18T09:40:22.317' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[Publicaciones] ([id], [username], [foto_perfil], [texto], [imagen], [fecha_publicacion], [tipo_publicacion], [Likeado]) VALUES (2, N'samuelpop', N'', N'Barrabasada mañanera', N'imagen2.jpeg', CAST(N'2024-03-18T09:43:22.027' AS DateTime), 2, 0)
+GO
+INSERT [dbo].[Publicaciones] ([id], [username], [foto_perfil], [texto], [imagen], [fecha_publicacion], [tipo_publicacion], [Likeado]) VALUES (3, N'jaime.reparaz', N'imgjaime.reparaz.jpeg', N'pruebas varias', N'', CAST(N'2024-03-18T09:55:52.103' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[Publicaciones] ([id], [username], [foto_perfil], [texto], [imagen], [fecha_publicacion], [tipo_publicacion], [Likeado]) VALUES (5, N'jaime.reparaz', N'imgjaime.reparaz.jpeg', N'pajarraco', N'imagen5.jpeg', CAST(N'2024-03-18T10:06:11.373' AS DateTime), 2, 0)
+GO
+INSERT [dbo].[Publicaciones] ([id], [username], [foto_perfil], [texto], [imagen], [fecha_publicacion], [tipo_publicacion], [Likeado]) VALUES (6, N'jaime.reparaz', N'imgjaime.reparaz.jpeg', N'klk cabrones', N'imagen6.jpeg', CAST(N'2024-03-18T10:15:19.140' AS DateTime), 2, 0)
+GO
+INSERT [dbo].[Publicaciones] ([id], [username], [foto_perfil], [texto], [imagen], [fecha_publicacion], [tipo_publicacion], [Likeado]) VALUES (7, N'german_paredes', N'', N'Alguien tiene una OCB?', N'', CAST(N'2024-03-18T10:24:34.977' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[Publicaciones] ([id], [username], [foto_perfil], [texto], [imagen], [fecha_publicacion], [tipo_publicacion], [Likeado]) VALUES (8, N'german_paredes', N'', N'mirad esto es una OCB', N'imagen8.jpeg', CAST(N'2024-03-18T10:24:59.330' AS DateTime), 2, 0)
+GO
+INSERT [dbo].[Publicaciones] ([id], [username], [foto_perfil], [texto], [imagen], [fecha_publicacion], [tipo_publicacion], [Likeado]) VALUES (9, N'sejomont', N'imgsejomont.jpeg', N'prueba sejis', N'', CAST(N'2024-03-18T10:28:04.893' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[Publicaciones] ([id], [username], [foto_perfil], [texto], [imagen], [fecha_publicacion], [tipo_publicacion], [Likeado]) VALUES (10, N'german_paredes', N'', N'mas pajaros', N'imagen10.jpeg', CAST(N'2024-03-18T10:46:29.487' AS DateTime), 2, 0)
+GO
+INSERT [dbo].[Publicaciones] ([id], [username], [foto_perfil], [texto], [imagen], [fecha_publicacion], [tipo_publicacion], [Likeado]) VALUES (11, N'jodidokike', N'imgjodidokike.jpeg', N'Que clase de crimen es ponerle mira de hierro a la ballista?', N'', CAST(N'2024-03-18T11:03:33.657' AS DateTime), 1, 0)
+GO
+SET IDENTITY_INSERT [dbo].[Publicaciones] OFF
+GO
+INSERT [dbo].[Roles] ([id], [nombre]) VALUES (1, N'admin')
+GO
+INSERT [dbo].[Roles] ([id], [nombre]) VALUES (2, N'usuario')
+GO
+SET IDENTITY_INSERT [dbo].[Seguidores] ON 
+GO
+INSERT [dbo].[Seguidores] ([id], [seguido_username], [seguidor_username]) VALUES (1, N'german_paredes', N'sejomont')
+GO
+INSERT [dbo].[Seguidores] ([id], [seguido_username], [seguidor_username]) VALUES (2, N'german_paredes', N'jaime.reparaz')
+GO
+INSERT [dbo].[Seguidores] ([id], [seguido_username], [seguidor_username]) VALUES (3, N'jodidokike', N'jaime.reparaz')
+GO
+SET IDENTITY_INSERT [dbo].[Seguidores] OFF
+GO
+INSERT [dbo].[Usuarios] ([username], [nombre], [password], [salt], [email], [telefono], [descripcion], [foto_perfil], [rol]) VALUES (N'german_paredes', N'Germy', 0xF15B97FF33A2F94AE192FFC290F2083335A0AF0CB86F96543F2B728797956803C85CCDFE577D495F9FC212913BF5D6C009D7B8B1BB456F3D6EBE10FE9104E6C0, N'?­M?Â(S?7ûdTûËewU
+?W¨¶ºSiÛ ç"]uÂê?Å}ì¤Pô8¦±¶sì', N'german@gmail.com', N'', N'', N'', 2)
+GO
+INSERT [dbo].[Usuarios] ([username], [nombre], [password], [salt], [email], [telefono], [descripcion], [foto_perfil], [rol]) VALUES (N'jaime.reparaz', N'Jaime', 0x6B6867F5E84DAA7AD8E4C4F2F9A9E348439966F39253D856F29E0F9DD5EAC9E722B00304EA2FED4188A23FF6F52F7477052F82855DB6ABD7FEEF3203524C8371, N'</2vò*1£?Gô1x7¯ú!»?bËÌCTKÏ7?I?6kLÍ$Ö²å\üÝÔC', N'jreparazm@gmail.com', N'', N'', N'imgjaime.reparaz.jpeg', 2)
+GO
+INSERT [dbo].[Usuarios] ([username], [nombre], [password], [salt], [email], [telefono], [descripcion], [foto_perfil], [rol]) VALUES (N'jodidokike', N'Energuia1994', 0x715AB517EC013D77CE6BE1C2786F6FDC1DF1AE7D6C45EB8AE82D2314316276E561303FE51A12E3266D4CE9A27F9F557772F8CA329EBE76FDD5CAD5B179F0A0A6, N'¸¿sYiÏå\Î2|ïb×©ÄàÎÂ¿84v.Äñ½!ã°OÏ«?@öÒn¿ÑE', N'kike@mail.com', N'', N'', N'imgjodidokike.jpeg', 2)
+GO
+INSERT [dbo].[Usuarios] ([username], [nombre], [password], [salt], [email], [telefono], [descripcion], [foto_perfil], [rol]) VALUES (N'samuelpop', N'Samu', 0xBEC42478D2A23121FEA8ABB26B0A2DA899E7FD38AB718127FDE9817E2C2B51AB83F0122F66FDA19A91F3BDAB138CE95B900AFF73DE857B58D20E375489F95292, N'Ä?JöRÖá©Ñº ½s?Î´çªAbËaASv[Ä???"L=¡ÎÑA??JmÁ®l', N'samu@outlook.com', N'', N'', N'', 2)
+GO
+INSERT [dbo].[Usuarios] ([username], [nombre], [password], [salt], [email], [telefono], [descripcion], [foto_perfil], [rol]) VALUES (N'sejomont', N'Sejis', 0xD6BEF7CE40D2DC62F2D67D7A615092B1078EDCC573A01B8EEBD88A0EA423D14E3B712E040C2227EF87300B9A79C48E972E45110F086F1C47BB79A012345E66E6, N'dË«ª+?kèenzÝMN9 n¦ÕÖÀôvR1°¬ç¨çÀ+5S?¶??â3Yb½bÖF', N'sejis@gmail.com', N'56563', N'', N'imgsejomont.jpeg', 2)
+GO
+INSERT [dbo].[Usuarios] ([username], [nombre], [password], [salt], [email], [telefono], [descripcion], [foto_perfil], [rol]) VALUES (N'valentinin', N'Valen', 0x04B0E14AFBFF82E3F0D6A02DCE51ADA2BC0AAC0E0984A6E4730C0BDA7330CD20599B904072B4EAAEEE5924E950B834C8F546D494458E65B3A1987D638C1D2A81, N'"Z?oB?Ã?#²âÄË­¶ôz{ûÊ®ón?¤kïtrèäÑË0â!?Úä5yÎ®Õ', N'valen@gmail.ocm', N'', N'', N'', 2)
+GO
+ALTER TABLE [dbo].[Publicaciones] ADD  DEFAULT ((0)) FOR [Likeado]
+GO
+ALTER TABLE [dbo].[Guardados]  WITH CHECK ADD FOREIGN KEY([id_publicacion])
+REFERENCES [dbo].[Publicaciones] ([id])
+GO
+ALTER TABLE [dbo].[Guardados]  WITH CHECK ADD FOREIGN KEY([username])
+REFERENCES [dbo].[Usuarios] ([username])
+GO
+ALTER TABLE [dbo].[Likes]  WITH CHECK ADD FOREIGN KEY([id_publicacion])
+REFERENCES [dbo].[Publicaciones] ([id])
+GO
+ALTER TABLE [dbo].[Likes]  WITH CHECK ADD FOREIGN KEY([username])
+REFERENCES [dbo].[Usuarios] ([username])
+GO
+ALTER TABLE [dbo].[Publicaciones]  WITH CHECK ADD FOREIGN KEY([username])
+REFERENCES [dbo].[Usuarios] ([username])
+GO
+ALTER TABLE [dbo].[Seguidores]  WITH CHECK ADD FOREIGN KEY([seguido_username])
+REFERENCES [dbo].[Usuarios] ([username])
+GO
+ALTER TABLE [dbo].[Seguidores]  WITH CHECK ADD FOREIGN KEY([seguidor_username])
+REFERENCES [dbo].[Usuarios] ([username])
+GO
+ALTER TABLE [dbo].[Usuarios]  WITH CHECK ADD FOREIGN KEY([rol])
+REFERENCES [dbo].[Roles] ([id])
+GO
+USE [master]
+GO
+ALTER DATABASE [REDSOCIAL] SET  READ_WRITE 
+GO

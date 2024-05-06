@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RedSocialNetCore</title>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body, html {
+            margin: 0px;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+        }
+
+        .background-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .container-login {
+            margin-left: 40vw; /* Margen izquierdo del 20% del ancho de la ventana del navegador */
+            margin-top: 27vh; /* Margen superior del 20% de la altura de la ventana del navegador */
+            transform: scale(1.15);
+        }
+
+        .card {
+            border-radius: 0;
+        }
+
+
+        .btn-login {
+            background-color: dodgerblue;
+            color: #ffffff;
+            width: calc(100% - 2rem);
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .form-control {
+            width: calc(100% - 2rem); /* Hace que los campos de texto sean ligeramente más cortos */
+            margin: 0 auto; /* Centra horizontalmente los campos de texto */
+        }
+        .register-link {
+            color: dodgerblue;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+    <img src="~/TheHive/thehivelogin2.jpg" alt="Fondo de pantalla" class="background-img" />
+
+    <div class="container container-login" style="margin-top: @(string.IsNullOrEmpty(ViewData["Mensaje"] as string) ? "27vh" : "23vh");">
+
+        <!-- Se aplica la clase container-login -->
+        <div class="row justify-content-center mt-9">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header text-center">Iniciar Sesión</div>
+                    <div class="card-body">
+                        @if (!string.IsNullOrEmpty(ViewData["Mensaje"] as string))
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewData["Mensaje"]
+                            </div>
+                        }
+
+                        <form asp-action="Login" method="post">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Nombre de Usuario</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-login">Iniciar Sesión</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        ¿No tienes una cuenta? <a asp-controller="Inicio" asp-action="Registro" class="nav-link register-link">Regístrate aquí</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

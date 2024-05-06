@@ -1,0 +1,55 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+
+    <style>
+        body, html {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif; /* Cambiar la fuente predeterminada de todo el cuerpo y la página */
+        }
+
+
+        .navbar {
+            font-family: 'Montserrat', sans-serif; /* Cambiar la fuente de la barra de navegación */
+            background-color: #000000;
+            height: 80px; /* Ajustar la altura verticalmente */
+            width: 100%; /* Ajustar la anchura horizontalmente */
+        }
+
+        .navbar-brand img.logo {
+            max-height: 40px; /* Hacer el logo ligeramente más grande */
+        }
+
+        .navbar-nav {
+            margin-left: auto; /* Hace que los navlinks se alineen a la derecha */
+        }
+
+        .dropdown-menu {
+            right: 0;
+            right: auto;
+        }
+
+        .content-container {
+            background-color: #fff; /* Fondo blanco para el contenido */
+            margin-top: 40px; /* Espacio encima del contenido */
+            padding: 40px;
+            border-radius: 0px; /* Bordes redondeados */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+    </style>
+
+
+</head>
+<body>
+    <script>
+        window.location.href = '@Url.Action("Login", "Inicio")';
+    </script>
+</body>
+</html>

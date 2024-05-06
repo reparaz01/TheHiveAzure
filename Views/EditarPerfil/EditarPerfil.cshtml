@@ -1,0 +1,302 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject TheHiveAzure.Helpers.HelperPathProvider HelperPathProvider
+@{
+    var currentUser = Context.Session.GetObject<Usuario>("CurrentUser");
+}
+
+@model Usuario
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RedSocialNetCore</title>
+
+    <link href="~/styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+
+    <style>
+
+
+        body, html {
+            margin: 0px;
+            width: 100%;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden
+        }
+
+
+        /* Estilo para la card de bienvenida */
+        .welcome-card {
+            margin-top: 25px;
+            margin-bottom: 25px;
+            border: 1px solid #ccc; /* Cambiar a un tono de gris más claro */
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            
+        }
+
+
+
+
+        .card-form {
+            height: 156.5vh; /* La tarjeta ocupará el 50% de la altura de la ventana del navegador */
+            border: 1px solid #ccc; /* Cambiar a un tono de gris más claro */
+        }
+
+
+        .card-container {
+            margin-top: 10vh; /* El margen superior será el 10% de la altura de la ventana del navegador */
+        }
+
+        .background-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Para que la imagen esté detrás del contenido */
+            object-fit: cover; /* Para ajustar la imagen sin distorsionarla */
+        }
+
+        .card-form::-webkit-scrollbar {
+            display: none;
+        }
+
+        a:link {
+            text-decoration: none;
+        }
+
+        a:visited {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        a:active {
+            text-decoration: none;
+        }
+
+        .separator {
+            height: 100%;
+            width: 1px;
+            background-color: #ccc;
+            margin: 0 25px; /* Ajusta el margen a tu preferencia */
+
+        }
+
+        .btn-text {
+            background-color: transparent; /* Hace que el fondo del botón sea transparente */
+            border: none; /* Elimina el borde del botón */
+            cursor: pointer;
+            font-size:18px;
+            
+        }
+
+            .btn-text:hover {
+                transform: scale(1.04); 
+                text-align:left;
+            }
+
+
+        .fotoperfil {
+            width: 97px;
+            height: 97px;
+            border-radius: 50%; /* Hace que la imagen sea circular */
+            box-sizing: border-box;
+        }
+
+        .btn-custom {
+            background-color: dodgerblue;
+            color: white;
+            width: 250px;
+            margin: auto;
+            display: block;
+            border-color: dodgerblue;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <img src="~/TheHive/thehivebackground3.jpg" alt="Fondo de pantalla" class="background-img" />
+    <header>
+        <nav class="navbar navbar-expand-lg ">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    <img src="~/TheHive/thehivelogo.png" alt="Logo" class="logo" />
+                </a>
+                @*  <img src="~/TheHive/hexagon.png" style="width: 100px; height: 100px; position: relative; top: 0px; left: 1493px; right: 1000px" /> *@
+                @* <img src="~/TheHive/hexagon.png" style="width: 98px; height: 98px; position: absolute; top: -1%; left: 94.18%;" /> *@
+
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Publicacion" asp-action="Publicar">Publicar</a>
+                        </li>
+                        @{
+                            if (currentUser != null)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @currentUser.Nombre
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="@Url.Action("Logout", "Inicio")">Cerrar sesión</a></li>
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Logout", "Inicio")">Cerrar sesión</a>
+                                </li>
+                            }
+                        }
+                        <li class="nav-item">
+                            <a asp-controller="Perfil" asp-action="VerPerfil" asp-route-otherUser="@currentUser.Username">
+                                @if (currentUser != null && !string.IsNullOrEmpty(currentUser.FotoPerfil))
+                                {
+                                    <img src="@HelperPathProvider.MapUrlPath(@currentUser.FotoPerfil, Folders.Usuarios)" class="profile-pic" />
+                                }
+                                else
+                                {
+                                    <img src="@HelperPathProvider.MapUrlPath("default.jpg", Folders.Usuarios)" class="profile-pic" />
+                                }
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="mx-auto" style="margin-top: 0vh; padding-left: 26vh; padding-right: 26vh;">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card welcome-card" style="height: 75vh;margin-top: 4.5vh;">
+                    <div class="card-body row" style="margin: 0; padding: 0;">
+                        <div class="d-flex align-items-start" style="margin: 0; padding: 0;">
+                            <div class="col-md-3" style="margin: 0; padding: 0; ">
+                                <div class="d-grid gap-2" style="margin-top: 3vh;margin-left:3vh">
+                                    <a asp-controller="Home" asp-action="Index" class="btn btn-text" style="text-align:left; margin-left:-1vh">Inicio</a>
+                                    <a asp-controller="Home" asp-action="Index" class="btn btn-text" style="text-align:left;margin-left:-1vh">Cambiar Username</a>
+                                    <a asp-controller="Home" asp-action="Index" class="btn btn-text" style="text-align:left;margin-left:-1vh">Cambiar Contraseña</a>
+                                    <a asp-controller="Home" asp-action="Index" class="btn btn-text" style="text-align:left; color:red;margin-left:-1vh">Eliminar Perfil</a>
+                                </div>
+                            </div>
+                            <div class="separator" style="align-items: center; margin-left:-24px"></div>
+                            <div class="col-md-6" style="text-align:center; margin-left:12vh;">
+                                
+                                <div style="margin-top: 3vh;margin-left: 6vh">
+                                    <div style="align-items: center; margin-top: 2vh;">
+
+                                        <div style="text-align: center;">
+                                            <h2><span>@@</span>@currentUser.Username</h2>
+                                        </div>
+                                        <div>
+                                            @if (currentUser != null && !string.IsNullOrEmpty(currentUser.FotoPerfil))
+                                            {
+                                                <img id="profile-image" src="@HelperPathProvider.MapUrlPath(@currentUser.FotoPerfil, Folders.Usuarios)" class="fotoperfil" style="border: 1px solid #ccc; border-radius: 50%; width: 120px; height: 120px;" />
+                                            }
+                                            else
+                                            {
+                                                <img id="profile-image" src="@HelperPathProvider.MapUrlPath("default.jpg", Folders.Usuarios)" class="fotoperfil" style="border-radius: 50%; width: 120px; height: 120px;" />
+                                            }
+                                        </div>
+                                        
+                                    </div>
+
+                                    <form method="post" enctype="multipart/form-data" style="margin-top: 20px;">
+                                        <style>
+                                            .form-group {
+                                                display: flex;
+                                                flex-direction: column;
+                                                align-items: flex-start;
+                                                margin-bottom: 10px;
+                                            }
+
+                                                .form-group label {
+                                                    align-self: flex-start;
+                                                    margin-bottom: 5px;
+                                                }
+                                        </style>  
+                                        <div >
+                                            <label for="FotoPerfil" style="color: dodgerblue; font-size: 19px; cursor: pointer; text-align:center">Cambiar foto de perfil</label>
+                                            <input type="file" class="form-control-file" id="FotoPerfil" name="FotoPerfil" accept="image/*" style="display: none;">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="Nombre"><b>Nombre:</b></label>
+                                            <input type="text" class="form-control" id="Nombre" name="Nombre" value="@currentUser.Nombre" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Email"><b>Email:</b></label>
+                                            <input type="email" class="form-control" id="Email" name="Email" value="@currentUser.Email" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Telefono"><b>Teléfono:</b></label>
+                                            <input type="text" class="form-control" id="Telefono" name="Telefono" value="@currentUser.Telefono">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Descripcion"><b>Descripción:</b></label>
+                                            <textarea class="form-control" id="Descripcion" name="Descripcion">@currentUser.Descripcion</textarea>
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-primary btn-custom" style="margin-top:2vh;">Guardar cambios</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <footer class="text-white text-center py-1" style="background-color: dodgerblue; position: absolute; bottom: 0; height: 5%; width: 100%;">
+        <div class="container">
+            <div class="row">
+                <div class="col" style="margin-top: 0.7vh">
+                    <p>Ayuda | Contacto | Términos y condiciones</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('FotoPerfil').addEventListener('change', function () {
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                document.getElementById('profile-image').src = event.target.result;
+            }
+            reader.readAsDataURL(file);
+        });
+    </script>
+
+
+</body>
+</html>

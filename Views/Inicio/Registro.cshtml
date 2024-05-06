@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "Registro";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RedSocialNetCore</title>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body, html {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif; /* Cambiar la fuente predeterminada de todo el cuerpo y la página */
+            overflow: hidden;
+        }
+
+        .card {
+            border-radius: 0;
+        }
+
+        .background-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .container-register {
+            margin-left: 40vw; 
+            margin-top: 16vh; 
+            transform: scale(1.15);
+        }
+
+        .btn-register {
+            background-color: dodgerblue;
+            color: #ffffff;
+            width: calc(100% - 2rem);
+            margin-top: 10px;
+            margin-bottom: -5px;
+        }
+
+        .form-control {
+            width: calc(100% - 2rem); /* Hace que los campos de texto sean ligeramente más cortos */
+            margin: 0 auto; /* Centra horizontalmente los campos de texto */
+        }
+
+        .login-link {
+            color: dodgerblue;
+            margin-bottom: 34px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="~/TheHive/thehivelogin2.jpg" alt="Fondo de pantalla" class="background-img" />
+
+    <div class="container container-register" style="margin-top: @(string.IsNullOrEmpty(ViewData["Mensaje"] as string) ? "17.2vh" : "13.9vh");">
+        <div class="row justify-content-center mt-9">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header text-center">Registro</div>
+                    <div class="card-body">
+                        @if (!string.IsNullOrEmpty(ViewData["Mensaje"] as string))
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewData["Mensaje"]
+                            </div>
+                        }
+
+                        <form asp-action="Registro" method="post">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Nombre de Usuario</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-register">Registrarse</button>
+                            </div> 
+                        </form>
+                    </div>
+                    <div class="text-center">
+                        <a asp-controller="Inicio" asp-action="Login" class="nav-link login-link">Volver al Inicio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
