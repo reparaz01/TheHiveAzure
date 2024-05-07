@@ -22,7 +22,7 @@ namespace TheHiveAzure.Services
         {
             this.httpContextAccessor = httpContextAccessor;
             this.UrlApiTheHive =
-                configuration.GetValue<string>("ApiUrls:ApiTheHiveLocal");
+                configuration.GetValue<string>("ApiUrls:ApiTheHive");
             this.Header =
                 new MediaTypeWithQualityHeaderValue("application/json");
         }
